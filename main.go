@@ -2,11 +2,92 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"strings"
 
 	"github.com/fatih/color"
+	"github.com/ipinfo/go/v2/ipinfo"
 )
+
+//Find CNAME
+func get_cname(name string) {
+	color.Yellow("\nCNAME")
+	color.Yellow("+-----------------------------------------+")
+	cname, _ := net.LookupCNAME(name)
+	fmt.Println("[+]", cname)
+}
+
+//Find txt records
+func get_txt_record(name string) {
+	color.Yellow("\nTXT records")
+	color.Yellow("+-----------------------------------------+")
+	txtrecords, _ := net.LookupTXT(name)
+
+	for _, txt := range txtrecords {
+		fmt.Println("[+]", txt)
+	}
+}
+
+//Find txt A and AAAA Records
+func get_aaa_record(name string) {
+	color.Yellow("\nA and AAA")
+	color.Yellow("+-----------------------------------------+")
+	iprecords, _ := net.LookupIP(name)
+	for _, ip := range iprecords {
+		city, err := ipinfo.GetIPCity(ip)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		country, err := ipinfo.GetIPCountry(ip)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		location, err := ipinfo.GetIPLocation(ip)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		organization, err := ipinfo.GetIPOrg(ip)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Println(
+			"[+]",
+			ip,
+		)
+		fmt.Println(
+			color.HiGreenString("=>"),
+			color.HiCyanString(city),
+			color.HiCyanString(country),
+			color.HiCyanString(location),
+			color.HiCyanString(organization),
+		)
+	}
+}
+
+//Find nameserver(s)
+func get_ns(name string) {
+	color.Yellow("\nName Server")
+	color.Yellow("+-----------------------------------------+")
+	nss, _ := net.LookupNS(name)
+	for _, ns := range nss {
+		fmt.Println("[+]", ns)
+	}
+}
+
+//Find MX record
+func get_mx_record(name string) {
+	color.Yellow("\nMX")
+	color.Yellow("+-----------------------------------------+")
+	mxrecords, _ := net.LookupMX(name)
+	for _, mx := range mxrecords {
+		fmt.Println("[+]", mx.Host, mx.Pref)
+	}
+}
 
 func main() {
 	var name string
@@ -46,53 +127,4 @@ func main() {
 	get_aaa_record(name)
 	get_ns(name)
 	get_mx_record(name)
-}
-
-//Find CNAME
-func get_cname(name string) {
-	color.Yellow("\nCNAME")
-	color.Yellow("+-----------------------------------------+")
-	cname, _ := net.LookupCNAME(name)
-	fmt.Println("[+]", cname)
-}
-
-//Find txt records
-func get_txt_record(name string) {
-	color.Yellow("\nTXT records")
-	color.Yellow("+-----------------------------------------+")
-	txtrecords, _ := net.LookupTXT(name)
-
-	for _, txt := range txtrecords {
-		fmt.Println("[+]", txt)
-	}
-}
-
-//Find txt A and AAAA Records
-func get_aaa_record(name string) {
-	color.Yellow("\nA and AAA")
-	color.Yellow("+-----------------------------------------+")
-	iprecords, _ := net.LookupIP(name)
-	for _, ip := range iprecords {
-		fmt.Println("[+]", ip)
-	}
-}
-
-//Find nameserver(s)
-func get_ns(name string) {
-	color.Yellow("\nName Server")
-	color.Yellow("+-----------------------------------------+")
-	nss, _ := net.LookupNS(name)
-	for _, ns := range nss {
-		fmt.Println("[+]", ns)
-	}
-}
-
-//Find MX record
-func get_mx_record(name string) {
-	color.Yellow("\nMX")
-	color.Yellow("+-----------------------------------------+")
-	mxrecords, _ := net.LookupMX(name)
-	for _, mx := range mxrecords {
-		fmt.Println("[+]", mx.Host, mx.Pref)
-	}
 }
