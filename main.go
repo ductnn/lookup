@@ -31,7 +31,7 @@ func get_txt_record(name string) {
 
 //Find txt A and AAAA Records
 func get_aaa_record(name string) {
-	color.Yellow("\nA and AAA")
+	color.Yellow("\nA and AAA & ipInfo")
 	color.Yellow("+-----------------------------------------+")
 	iprecords, _ := net.LookupIP(name)
 	for _, ip := range iprecords {
@@ -104,7 +104,7 @@ func main() {
 	color.Blue("What it looks for : ")
 	color.Blue(" * CNAME")
 	color.Blue(" * TXT Records")
-	color.Blue(" * A and AAA Records")
+	color.Blue(" * A and AAA Records & ipInfo")
 	color.Blue(" * NS Records")
 	color.Blue(" * MX Records")
 	color.Blue("\nEnter domain name:")
@@ -127,4 +127,6 @@ func main() {
 	get_aaa_record(name)
 	get_ns(name)
 	get_mx_record(name)
+
+	fmt.Printf("\n")
 }
