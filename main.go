@@ -4,36 +4,64 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 	"strings"
 
 	"github.com/fatih/color"
 	"github.com/ipinfo/go/v2/ipinfo"
+	"github.com/olekukonko/tablewriter"
 )
 
 //Find CNAME
 func get_cname(name string) {
 	color.Yellow("\nCNAME")
-	color.Yellow("+-----------------------------------------+")
 	cname, _ := net.LookupCNAME(name)
-	fmt.Println("[+]", cname)
+	data := [][]string{
+		{name, cname},
+	}
+
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Domain", "CNAME"})
+	table.SetRowLine(true)
+
+	for _, v := range data {
+		table.Append(v)
+	}
+	table.Render()
+	// fmt.Println("[+]", cname)
 }
 
 //Find txt records
 func get_txt_record(name string) {
 	color.Yellow("\nTXT records")
-	color.Yellow("+-----------------------------------------+")
 	txtrecords, _ := net.LookupTXT(name)
 
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Domain", "TXT Records"})
+	table.SetRowLine(true)
+
 	for _, txt := range txtrecords {
-		fmt.Println("[+]", txt)
+		data := [][]string{
+			{name, "[+] " + txt},
+		}
+
+		for _, v := range data {
+			table.Append(v)
+		}
+		// fmt.Println("[+]", txt)
 	}
+
+	table.Render()
 }
 
 //Find txt A and AAAA Records
 func get_aaa_record(name string) {
-	color.Yellow("\nA and AAA & ipInfo")
-	color.Yellow("+-----------------------------------------+")
+	color.Yellow("\nIP Informations")
 	iprecords, _ := net.LookupIP(name)
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Domain", "IP", "IP informations"})
+	table.SetRowLine(true)
+
 	for _, ip := range iprecords {
 		city, err := ipinfo.GetIPCity(ip)
 		if err != nil {
@@ -55,38 +83,71 @@ func get_aaa_record(name string) {
 			log.Fatal(err)
 		}
 
-		fmt.Println(
-			"[+]",
-			ip,
-		)
-		fmt.Println(
-			color.HiGreenString("=>"),
-			color.HiCyanString(city),
-			color.HiCyanString(country),
-			color.HiCyanString(location),
-			color.HiCyanString(organization),
-		)
+		// fmt.Println(
+		// 	"[+]",
+		// 	ip,
+		// )
+		// fmt.Println(
+		// 	color.HiGreenString("=>"),
+		// 	color.HiCyanString(city),
+		// 	color.HiCyanString(country),
+		// 	color.HiCyanString(location),
+		// 	color.HiCyanString(organization),
+		// )
+
+		data := [][]string{
+			{name, ip.String(), color.HiCyanString(city + " " + country + " " + location + " " + organization)},
+		}
+
+		for _, v := range data {
+			table.Append(v)
+		}
 	}
+
+	table.Render()
 }
 
 //Find nameserver(s)
 func get_ns(name string) {
 	color.Yellow("\nName Server")
-	color.Yellow("+-----------------------------------------+")
 	nss, _ := net.LookupNS(name)
+
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Domain", "Name Servers"})
+	table.SetRowLine(true)
+
 	for _, ns := range nss {
-		fmt.Println("[+]", ns)
+		data := [][]string{
+			{name, ns.Host},
+		}
+		for _, v := range data {
+			table.Append(v)
+		}
+		// fmt.Println("[+]", ns)
 	}
+
+	table.Render()
 }
 
 //Find MX record
 func get_mx_record(name string) {
 	color.Yellow("\nMX")
-	color.Yellow("+-----------------------------------------+")
 	mxrecords, _ := net.LookupMX(name)
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Domain", "MX Records"})
+	table.SetRowLine(true)
 	for _, mx := range mxrecords {
-		fmt.Println("[+]", mx.Host, mx.Pref)
+		// fmt.Println("[+]", mx.Host, mx.Pref)
+		var s string
+		s = fmt.Sprint(mx.Pref)
+		data := [][]string{
+			{name, mx.Host + " " + s},
+		}
+		for _, v := range data {
+			table.Append(v)
+		}
 	}
+	table.Render()
 }
 
 func main() {
@@ -101,12 +162,6 @@ func main() {
  	`
 
 	color.Green("%s", banner)
-	color.Blue("What it looks for : ")
-	color.Blue(" * CNAME")
-	color.Blue(" * TXT Records")
-	color.Blue(" * A and AAA Records & ipInfo")
-	color.Blue(" * NS Records")
-	color.Blue(" * MX Records")
 	color.Blue("\nEnter domain name:")
 
 	fmt.Scanf("%s", &name)
@@ -129,4 +184,7 @@ func main() {
 	get_mx_record(name)
 
 	fmt.Printf("\n")
+
+	// table := tablewriter.NewWriter(os.Stdout)
+	// table.Append(get_cname(name))
 }
