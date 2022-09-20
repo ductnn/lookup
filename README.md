@@ -1,6 +1,7 @@
 # LOOKUP
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ductnn/lookup/pulls)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ductnn/lookup)](https://goreportcard.com/report/github.com/ductnn/lookup)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **LOOKUP** is a simple tool check IP informations, NS(Name Server), A records,
