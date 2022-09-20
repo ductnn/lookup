@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/fatih/color"
@@ -12,16 +13,35 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
+func get_domain(name string) string {
+	hostName := strings.TrimSpace(name)
+	hostParts := strings.Split(hostName, ".")
+
+	lengthOfHostParts := len(hostParts)
+
+	if lengthOfHostParts == 3 {
+		name = strings.Join([]string{hostParts[1], hostParts[2]}, ".")
+	} else if lengthOfHostParts == 4 {
+		name = strings.Join([]string{hostParts[2], hostParts[3]}, ".")
+	}
+
+	return name
+}
+
 //Find CNAME
 func get_cname(name string) {
+	var domainName string
 	color.Yellow("\nCNAME")
 	cname, _ := net.LookupCNAME(name)
+
+	domainName = get_domain(name)
+
 	data := [][]string{
-		{name, cname},
+		{name, domainName, cname},
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Domain", "CNAME"})
+	table.SetHeader([]string{"Domain or Subdomain", "Domain", "CNAME"})
 	table.SetRowLine(true)
 
 	for _, v := range data {
@@ -33,34 +53,43 @@ func get_cname(name string) {
 
 //Find txt records
 func get_txt_record(name string) {
+	var domainName string
 	color.Yellow("\nTXT records")
 	txtrecords, _ := net.LookupTXT(name)
+
+	domainName = get_domain(name)
 
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Domain", "TXT Records"})
 	table.SetRowLine(true)
+	table.SetAutoMergeCells(true)
 
 	for _, txt := range txtrecords {
 		data := [][]string{
-			{name, "[+] " + txt},
+			{domainName, "[+] " + txt},
 		}
 
 		for _, v := range data {
 			table.Append(v)
 		}
-		// fmt.Println("[+]", txt)
 	}
 
 	table.Render()
 }
 
-//Find txt A and AAAA Records
-func get_aaa_record(name string) {
+//Find IP informations
+func get_ip(name string) {
+	var domainName string
 	color.Yellow("\nIP Informations")
 	iprecords, _ := net.LookupIP(name)
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Domain", "IP", "IP informations"})
+	table.SetHeader([]string{
+		"Domain", "IP", "City and Country", "Location", "Organization",
+	})
 	table.SetRowLine(true)
+	table.SetAutoMergeCells(true)
+
+	domainName = get_domain(name)
 
 	for _, ip := range iprecords {
 		city, err := ipinfo.GetIPCity(ip)
@@ -83,21 +112,13 @@ func get_aaa_record(name string) {
 			log.Fatal(err)
 		}
 
-		// fmt.Println(
-		// 	"[+]",
-		// 	ip,
-		// )
-		// fmt.Println(
-		// 	color.HiGreenString("=>"),
-		// 	color.HiCyanString(city),
-		// 	color.HiCyanString(country),
-		// 	color.HiCyanString(location),
-		// 	color.HiCyanString(organization),
-		// )
-
-		data := [][]string{
-			{name, ip.String(), color.HiCyanString(city + " " + country + " " + location + " " + organization)},
-		}
+		data := [][]string{{
+			domainName,
+			ip.String(),
+			color.HiGreenString(city + ", " + country),
+			color.HiGreenString(location),
+			color.HiGreenString(organization),
+		}}
 
 		for _, v := range data {
 			table.Append(v)
@@ -109,21 +130,24 @@ func get_aaa_record(name string) {
 
 //Find nameserver(s)
 func get_ns(name string) {
+	var domainName string
 	color.Yellow("\nName Server")
 	nss, _ := net.LookupNS(name)
 
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Domain", "Name Servers"})
 	table.SetRowLine(true)
+	table.SetAutoMergeCells(true)
+
+	domainName = get_domain(name)
 
 	for _, ns := range nss {
 		data := [][]string{
-			{name, ns.Host},
+			{domainName, ns.Host},
 		}
 		for _, v := range data {
 			table.Append(v)
 		}
-		// fmt.Println("[+]", ns)
 	}
 
 	table.Render()
@@ -131,17 +155,20 @@ func get_ns(name string) {
 
 //Find MX record
 func get_mx_record(name string) {
+	var domainName string
 	color.Yellow("\nMX")
 	mxrecords, _ := net.LookupMX(name)
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Domain", "MX Records"})
 	table.SetRowLine(true)
+	table.SetAutoMergeCells(true)
+
+	domainName = get_domain(name)
+
 	for _, mx := range mxrecords {
-		// fmt.Println("[+]", mx.Host, mx.Pref)
-		var s string
-		s = fmt.Sprint(mx.Pref)
+		s := mx.Pref
 		data := [][]string{
-			{name, mx.Host + " " + s},
+			{domainName, mx.Host + " " + strconv.Itoa(int(s))},
 		}
 		for _, v := range data {
 			table.Append(v)
@@ -166,25 +193,11 @@ func main() {
 
 	fmt.Scanf("%s", &name)
 
-	hostName := strings.TrimSpace(name)
-	hostParts := strings.Split(hostName, ".")
-
-	lengthOfHostParts := len(hostParts)
-
-	if lengthOfHostParts == 3 {
-		name = strings.Join([]string{hostParts[1], hostParts[2]}, ".")
-	} else if lengthOfHostParts == 4 {
-		name = strings.Join([]string{hostParts[2], hostParts[3]}, ".")
-	}
-
 	get_cname(name)
 	get_txt_record(name)
-	get_aaa_record(name)
+	get_ip(name)
 	get_ns(name)
 	get_mx_record(name)
 
 	fmt.Printf("\n")
-
-	// table := tablewriter.NewWriter(os.Stdout)
-	// table.Append(get_cname(name))
 }
