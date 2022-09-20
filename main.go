@@ -190,7 +190,7 @@ func main() {
  	`
 
 	color.Green("%s", banner)
-	color.Blue("\nEnter domain name:")
+	color.Blue("\nEnter subdomain or domain name:")
 
 	fmt.Scanf("%s", &name)
 
