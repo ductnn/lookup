@@ -37,7 +37,7 @@ func get_cname(name string) {
 	domainName = get_domain(name)
 
 	data := [][]string{
-		{name, domainName, cname},
+		{name, color.HiCyanString(domainName), color.HiCyanString(cname)},
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
@@ -66,7 +66,7 @@ func get_txt_record(name string) {
 
 	for _, txt := range txtrecords {
 		data := [][]string{
-			{domainName, "[+] " + txt},
+			{domainName, color.HiMagentaString(txt)},
 		}
 
 		for _, v := range data {
@@ -131,7 +131,7 @@ func get_ip(name string) {
 //Find nameserver(s)
 func get_ns(name string) {
 	var domainName string
-	color.Yellow("\nName Server")
+	color.Yellow("\nName Servers")
 	nss, _ := net.LookupNS(name)
 
 	table := tablewriter.NewWriter(os.Stdout)
@@ -143,7 +143,7 @@ func get_ns(name string) {
 
 	for _, ns := range nss {
 		data := [][]string{
-			{domainName, ns.Host},
+			{domainName, color.HiYellowString(ns.Host)},
 		}
 		for _, v := range data {
 			table.Append(v)
@@ -156,7 +156,7 @@ func get_ns(name string) {
 //Find MX record
 func get_mx_record(name string) {
 	var domainName string
-	color.Yellow("\nMX")
+	color.Yellow("\nMX Records")
 	mxrecords, _ := net.LookupMX(name)
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Domain", "MX Records"})
@@ -167,9 +167,10 @@ func get_mx_record(name string) {
 
 	for _, mx := range mxrecords {
 		s := mx.Pref
-		data := [][]string{
-			{domainName, mx.Host + " " + strconv.Itoa(int(s))},
-		}
+		data := [][]string{{
+			domainName,
+			color.HiCyanString(mx.Host) + " " + color.HiGreenString(strconv.Itoa(int(s))),
+		}}
 		for _, v := range data {
 			table.Append(v)
 		}
