@@ -3,8 +3,8 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ductnn/lookup/pulls)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**LOOKUP** is a simple tool check IP, NS(Name Server), A records, MX records, ...
-with **Go**.
+**LOOKUP** is a simple tool check IP informations, NS(Name Server), A records,
+MX records, ... with **Go**.
 
 ```bash
      /\/| __   /\/| __
@@ -46,8 +46,34 @@ google.com
 
 Check result:
 
+**CNAME**
+
   <p align="center">
-    <img src="assets/result.png" width="500">
+    <img src="assets/cname.png" width="500">
+  </p>
+
+**TXT records**
+
+  <p align="center">
+    <img src="assets/txt.png" width="500">
+  </p>
+
+**IP informations**
+
+  <p align="center">
+    <img src="assets/ip.png" width="500">
+  </p>
+
+**Name Servers**
+
+  <p align="center">
+    <img src="assets/ns.png" width="500">
+  </p>
+
+**MX records**
+
+  <p align="center">
+    <img src="assets/mx.png" width="500">
   </p>
 
 ### With docker
@@ -62,6 +88,87 @@ or pulls my image in [here](https://hub.docker.com/r/ductn4/loo), and run *conta
 
 ```sh
 docker run -it ductn4/loo
+```
+
+### With file binary
+
+You can down file *binary* in [here](bin/loo) for running tool:
+
+```sh
+# Download file bin to your local
+chmod +x loo
+./loo
+# And check result ...
+```
+
+Test with **facebook.com**:
+
+```sh
+➜  bin git:(master) ✗ ./loo
+
+     /\/| __   /\/| __
+    |/\/ /_/  |/\/ /_/
+      ___     ___
+     / _ \   / _ \
+    | (_) | | (_) |
+     \___/   \___/
+
+
+Enter domain name:
+facebook.com
+
+CNAME
++---------------------+--------------+---------------+
+| DOMAIN OR SUBDOMAIN |    DOMAIN    |     CNAME     |
++---------------------+--------------+---------------+
+| facebook.com        | facebook.com | facebook.com. |
++---------------------+--------------+---------------+
+
+TXT records
++--------------+----------------------------------------------------------------------+
+|    DOMAIN    |                             TXT RECORDS                              |
++--------------+----------------------------------------------------------------------+
+| facebook.com | google-site-verification=A2WZWCNQHrGV_TWwKh6KHY90tY0SHZo_RnyMJoDaG0s |
++              +----------------------------------------------------------------------+
+|              | v=spf1                                                               |
+|              | redirect=_spf.facebook.com                                           |
++              +----------------------------------------------------------------------+
+|              | google-site-verification=sK6uY9x7eaMoEMfn3OILqwTFYgaNp4llmguKI-C3_iA |
++              +----------------------------------------------------------------------+
+|              | google-site-verification=wdH5DTJTc9AYNwVunSVFeK0hYDGUIEOGb-RReU6pJlY |
++--------------+----------------------------------------------------------------------+
+
+IP Informations
++--------------+------------------------------------+------------------+------------------+------------------------+
+|    DOMAIN    |                 IP                 | CITY AND COUNTRY |     LOCATION     |      ORGANIZATION      |
++--------------+------------------------------------+------------------+------------------+------------------------+
+| facebook.com | 31.13.75.35                        | Hong             | 22.2783,114.1747 | AS32934 Facebook,      |
+|              |                                    | Kong, HK         |                  | Inc.                   |
++              +------------------------------------+------------------+------------------+                        +
+|              | 2a03:2880:f15a:83:face:b00c:0:25de | Dublin,          | 53.3331,-6.2489  |                        |
+|              |                                    | IE               |                  |                        |
++--------------+------------------------------------+------------------+------------------+------------------------+
+
+Name Servers
++--------------+--------------------+
+|    DOMAIN    |    NAME SERVERS    |
++--------------+--------------------+
+| facebook.com | b.ns.facebook.com. |
++              +--------------------+
+|              | d.ns.facebook.com. |
++              +--------------------+
+|              | a.ns.facebook.com. |
++              +--------------------+
+|              | c.ns.facebook.com. |
++--------------+--------------------+
+
+MX Records
++--------------+-----------------------------+
+|    DOMAIN    |         MX RECORDS          |
++--------------+-----------------------------+
+| facebook.com | smtpin.vvv.facebook.com.    |
+|              | 10                          |
++--------------+-----------------------------+
 ```
 
 ## License
