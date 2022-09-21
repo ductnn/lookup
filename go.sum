@@ -1,3 +1,5 @@
+github.com/ammario/ipisp/v2 v2.0.0 h1:/aRMp5srZViiBfOUGzl/Esqae4s0MDDzm9buhGcZ0XU=
+github.com/ammario/ipisp/v2 v2.0.0/go.mod h1:bQ6KAL5LnYYEj6olUn+Bzv/im/4Esa5oGkbv9b+uOjo=
 github.com/fatih/color v1.13.0 h1:8LOYc1KYPPmyKMuN8QV2DNRWNbLo6LZ0iLs8+mlH53w=
 github.com/fatih/color v1.13.0/go.mod h1:kLAiJbzzSOZDVNGyDpeOxJ47H46qBXwg5ILebYFFOfk=
 github.com/ipinfo/go/v2 v2.8.0 h1:KHBHoRLbiK9Osiv82AIiSBpcr0M3Z+q2AteCuZjcx14=

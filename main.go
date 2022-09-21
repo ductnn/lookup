@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net"
@@ -8,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/ammario/ipisp/v2"
 	"github.com/fatih/color"
 	"github.com/ipinfo/go/v2/ipinfo"
 	"github.com/olekukonko/tablewriter"
@@ -85,7 +87,7 @@ func get_ip(name string) {
 	iprecords, _ := net.LookupIP(name)
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{
-		"Domain", "IP", "City and Country", "Location", "Organization",
+		"Domain", "IP", "City and Country", "Location", "Organization", "IPISP",
 	})
 	table.SetRowLine(true)
 	table.SetAutoMergeCells(true)
@@ -93,6 +95,17 @@ func get_ip(name string) {
 	domainName = get_domain(name)
 
 	for _, ip := range iprecords {
+		// Get IPISP
+		resp, err := ipisp.LookupIP(context.Background(), net.ParseIP(ip.String()))
+		if err != nil {
+			panic(err)
+		}
+
+		resp, err = ipisp.LookupASN(context.Background(), ipisp.ASN(resp.ASN))
+		if err != nil {
+			panic(err)
+		}
+
 		city, err := ipinfo.GetIPCity(ip)
 		if err != nil {
 			log.Fatal(err)
@@ -119,6 +132,7 @@ func get_ip(name string) {
 			color.HiGreenString(city + ", " + country),
 			color.HiGreenString(location),
 			color.HiGreenString(organization),
+			color.HiCyanString(resp.ISPName),
 		}}
 
 		for _, v := range data {
@@ -144,7 +158,7 @@ func get_ns(name string) {
 
 	for _, ns := range nss {
 		data := [][]string{
-			{domainName, color.HiYellowString(ns.Host)},
+			{domainName, color.HiRedString(ns.Host)},
 		}
 		for _, v := range data {
 			table.Append(v)
