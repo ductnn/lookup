@@ -88,7 +88,7 @@ docker build -t <your-image> -f Dockerfile .
 or pulls my image in [here](https://hub.docker.com/r/ductn4/loo), and run *container*
 
 ```sh
-docker run -it ductn4/loo
+docker run -it ductn4/loo:v2
 ```
 
 ### With file binary
