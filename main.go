@@ -15,27 +15,10 @@ import (
 	"github.com/olekukonko/tablewriter"
 )
 
-func get_domain(name string) string {
-	hostName := strings.TrimSpace(name)
-	hostParts := strings.Split(hostName, ".")
-
-	lengthOfHostParts := len(hostParts)
-
-	if lengthOfHostParts == 3 {
-		name = strings.Join([]string{hostParts[1], hostParts[2]}, ".")
-	} else if lengthOfHostParts == 4 {
-		name = strings.Join([]string{hostParts[2], hostParts[3]}, ".")
-	} else if lengthOfHostParts == 5 {
-		name = strings.Join([]string{hostParts[3], hostParts[4]}, ".")
-	}
-
-	return name
-}
-
 //Find CNAME
 func get_cname(name string) {
 	var domainName string
-	color.Yellow("\nCNAME")
+	color.HiGreen("\n[✔] " + color.HiYellowString("CNAME"))
 	cname, _ := net.LookupCNAME(name)
 
 	domainName = get_domain(name)
@@ -57,7 +40,7 @@ func get_cname(name string) {
 //Find txt records
 func get_txt_record(name string) {
 	var domainName string
-	color.Yellow("\nTXT records")
+	color.HiGreen("\n[✔] " + color.HiYellowString("TXT records"))
 	txtrecords, _ := net.LookupTXT(name)
 
 	domainName = get_domain(name)
@@ -83,7 +66,7 @@ func get_txt_record(name string) {
 //Find IP informations
 func get_ip(name string) {
 	var domainName string
-	color.Yellow("\nIP Informations")
+	color.HiGreen("\n[✔] " + color.HiYellowString("IP Informations"))
 	iprecords, _ := net.LookupIP(name)
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{
@@ -146,7 +129,7 @@ func get_ip(name string) {
 //Find nameserver(s)
 func get_ns(name string) {
 	var domainName string
-	color.Yellow("\nName Servers")
+	color.HiGreen("\n[✔] " + color.HiYellowString("Name Servers"))
 	nss, _ := net.LookupNS(name)
 
 	table := tablewriter.NewWriter(os.Stdout)
@@ -171,7 +154,7 @@ func get_ns(name string) {
 //Find MX record
 func get_mx_record(name string) {
 	var domainName string
-	color.Yellow("\nMX Records")
+	color.HiGreen("\n[✔] " + color.HiYellowString("MX Records"))
 	mxrecords, _ := net.LookupMX(name)
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"Domain", "MX Records"})
@@ -193,8 +176,43 @@ func get_mx_record(name string) {
 	table.Render()
 }
 
+// Function get domain
+func get_domain(name string) string {
+	hostName := strings.TrimSpace(name)
+	hostParts := strings.Split(hostName, ".")
+
+	lengthOfHostParts := len(hostParts)
+
+	if lengthOfHostParts == 3 {
+		name = strings.Join([]string{hostParts[1], hostParts[2]}, ".")
+	} else if lengthOfHostParts == 4 {
+		name = strings.Join([]string{hostParts[2], hostParts[3]}, ".")
+	} else if lengthOfHostParts == 5 {
+		name = strings.Join([]string{hostParts[3], hostParts[4]}, ".")
+	}
+
+	return name
+}
+
+// End
+func end_program() {
+	var goodbye, githubURL, dockerURL string
+
+	goodbye = "Star the project on GitHub if you liked this tool"
+	githubURL = "https://github.com/ductnn/lookup"
+	dockerURL = "https://hub.docker.com/r/ductn4/loo"
+
+	color.HiWhite("\n🐳 You can pull docker image in: " + color.HiCyanString(dockerURL))
+	color.HiGreen("\n⭐️ " + goodbye)
+	color.HiYellow("\n👉 " + githubURL + " 👈")
+	color.HiWhite("\n🎉 Thank you so much 🎉")
+
+	fmt.Printf("\n")
+}
+
 func main() {
 	var name string
+
 	banner := `
      /\/| __   /\/| __
     |/\/ /_/  |/\/ /_/
@@ -204,8 +222,8 @@ func main() {
      \___/   \___/
  	`
 
-	color.Green("%s", banner)
-	color.Blue("\nEnter subdomain or domain name:")
+	color.HiGreen("%s", banner)
+	color.HiBlue("\nEnter subdomain or domain name:")
 
 	fmt.Scanf("%s", &name)
 
@@ -215,5 +233,5 @@ func main() {
 	get_ns(name)
 	get_mx_record(name)
 
-	fmt.Printf("\n")
+	end_program()
 }
