@@ -23,6 +23,8 @@ func get_domain(name string) string {
 		name = strings.Join([]string{hostParts[1], hostParts[2]}, ".")
 	} else if lengthOfHostParts == 4 {
 		name = strings.Join([]string{hostParts[2], hostParts[3]}, ".")
+	} else if lengthOfHostParts == 5 {
+		name = strings.Join([]string{hostParts[3], hostParts[4]}, ".")
 	}
 
 	return name
@@ -48,7 +50,6 @@ func get_cname(name string) {
 		table.Append(v)
 	}
 	table.Render()
-	// fmt.Println("[+]", cname)
 }
 
 //Find txt records
