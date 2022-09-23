@@ -2,9 +2,12 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net"
+	"net/http"
 	"os"
 	"strconv"
 	"strings"
@@ -14,6 +17,24 @@ import (
 	"github.com/ipinfo/go/v2/ipinfo"
 	"github.com/olekukonko/tablewriter"
 )
+
+type Crtsr struct {
+	CommonName string `json:"common_name"`
+	NameValue  string `json:"name_value"`
+}
+
+var banner = `
+ _                _    _   _
+| |    ___   ___ | | _| | | |_ __
+| |   / _ \ / _ \| |/ / | | | '_ \
+| |__| (_) | (_) |   <| |_| | |_) |
+|_____\___/ \___/|_|\_\\___/| .__/
+                            |_|
+
+[+] by @ductnn
+[+] https://github.com/ductnn
+[-] Usage: ./loo
+`
 
 //Find CNAME
 func get_cname(name string) {
@@ -194,6 +215,82 @@ func get_domain(name string) string {
 	return name
 }
 
+// Get Subdomain
+func GetJsonFromCrt(domain string) ([]string, error) {
+
+	resp, err := http.Get(fmt.Sprintf("https://crt.sh/?q=%s&output=json", domain))
+	if err != nil {
+		panic(err)
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	sb := []byte(body)
+	var subdomains []Crtsr
+	err = json.Unmarshal(sb, &subdomains)
+	if err != nil {
+		panic(err)
+	}
+
+	output := make([]string, 0)
+	for _, subdomains := range subdomains {
+		output = append(output, subdomains.CommonName)
+		output = append(output, subdomains.NameValue)
+	}
+
+	return output, nil
+
+}
+func removeDuplicateValues(strSlice []string) []string {
+	// https://www.geeksforgeeks.org/how-to-remove-duplicate-values-from-slice-in-golang/
+	keys := make(map[string]bool)
+	list := []string{}
+
+	for _, entry := range strSlice {
+		if _, value := keys[entry]; !value {
+			keys[entry] = true
+			list = append(list, entry)
+		}
+	}
+
+	return list
+}
+
+func get_subdomain(name string) {
+	var domainName string
+	color.HiGreen("\n[✔] " + color.HiYellowString("Subdomain"))
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Domain", "Subdomain"})
+	table.SetRowLine(true)
+	table.SetAutoMergeCells(true)
+
+	subdomain, err := GetJsonFromCrt(name)
+	if err != nil {
+		panic(err)
+	}
+
+	removeDuplicateValuesSlice := removeDuplicateValues(subdomain)
+
+	for _, uniquesubdomain := range removeDuplicateValuesSlice {
+		// fmt.Println(uniquesubdomain)
+		domainName = get_domain(name)
+
+		data := [][]string{
+			{color.HiCyanString(domainName), color.HiGreenString(uniquesubdomain)},
+		}
+
+		for _, v := range data {
+			table.Append(v)
+		}
+	}
+
+	table.Render()
+}
+
 // End
 func end_program() {
 	var goodbye, githubURL, dockerURL string
@@ -213,15 +310,6 @@ func end_program() {
 func main() {
 	var name string
 
-	banner := `
-     /\/| __   /\/| __
-    |/\/ /_/  |/\/ /_/
-      ___     ___
-     / _ \   / _ \
-    | (_) | | (_) |
-     \___/   \___/
- 	`
-
 	color.HiGreen("%s", banner)
 	color.HiBlue("\nEnter subdomain or domain name:")
 
@@ -232,6 +320,7 @@ func main() {
 	get_ip(name)
 	get_ns(name)
 	get_mx_record(name)
+	get_subdomain(name)
 
 	end_program()
 }
