@@ -113,63 +113,71 @@ Test with **facebook.com**:
      / _ \   / _ \
     | (_) | | (_) |
      \___/   \___/
-
+ 
 
 Enter subdomain or domain name:
 facebook.com
 
-CNAME
+[✔] CNAME
 +---------------------+--------------+---------------+
 | DOMAIN OR SUBDOMAIN |    DOMAIN    |     CNAME     |
 +---------------------+--------------+---------------+
 | facebook.com        | facebook.com | facebook.com. |
 +---------------------+--------------+---------------+
 
-TXT records
+[✔] TXT records
 +--------------+----------------------------------------------------------------------+
 |    DOMAIN    |                             TXT RECORDS                              |
 +--------------+----------------------------------------------------------------------+
-| facebook.com | google-site-verification=A2WZWCNQHrGV_TWwKh6KHY90tY0SHZo_RnyMJoDaG0s |
+| facebook.com | google-site-verification=sK6uY9x7eaMoEMfn3OILqwTFYgaNp4llmguKI-C3_iA |
++              +----------------------------------------------------------------------+
+|              | google-site-verification=A2WZWCNQHrGV_TWwKh6KHY90tY0SHZo_RnyMJoDaG0s |
++              +----------------------------------------------------------------------+
+|              | google-site-verification=wdH5DTJTc9AYNwVunSVFeK0hYDGUIEOGb-RReU6pJlY |
 +              +----------------------------------------------------------------------+
 |              | v=spf1                                                               |
 |              | redirect=_spf.facebook.com                                           |
-+              +----------------------------------------------------------------------+
-|              | google-site-verification=sK6uY9x7eaMoEMfn3OILqwTFYgaNp4llmguKI-C3_iA |
-+              +----------------------------------------------------------------------+
-|              | google-site-verification=wdH5DTJTc9AYNwVunSVFeK0hYDGUIEOGb-RReU6pJlY |
 +--------------+----------------------------------------------------------------------+
 
-IP Informations
-+--------------+------------------------------------+------------------+------------------+------------------------+
-|    DOMAIN    |                 IP                 | CITY AND COUNTRY |     LOCATION     |      ORGANIZATION      |
-+--------------+------------------------------------+------------------+------------------+------------------------+
-| facebook.com | 31.13.75.35                        | Hong             | 22.2783,114.1747 | AS32934 Facebook,      |
-|              |                                    | Kong, HK         |                  | Inc.                   |
-+              +------------------------------------+------------------+------------------+                        +
-|              | 2a03:2880:f15a:83:face:b00c:0:25de | Dublin,          | 53.3331,-6.2489  |                        |
-|              |                                    | IE               |                  |                        |
-+--------------+------------------------------------+------------------+------------------+------------------------+
+[✔] IP Informations
++--------------+------------------------------------+------------------+------------------+------------------------+--------------+
+|    DOMAIN    |                 IP                 | CITY AND COUNTRY |     LOCATION     |      ORGANIZATION      |    IPISP     |
++--------------+------------------------------------+------------------+------------------+------------------------+--------------+
+| facebook.com | 31.13.77.35                        | Hong             | 22.2783,114.1747 | AS32934 Facebook,      | FACEBOOK,    |
+|              |                                    | Kong, HK         |                  | Inc.                   | US           |
++              +------------------------------------+------------------+------------------+                        +              +
+|              | 2a03:2880:f15a:83:face:b00c:0:25de | Dublin,          | 53.3331,-6.2489  |                        |              |
+|              |                                    | IE               |                  |                        |              |
++--------------+------------------------------------+------------------+------------------+------------------------+--------------+
 
-Name Servers
+[✔] Name Servers
 +--------------+--------------------+
 |    DOMAIN    |    NAME SERVERS    |
 +--------------+--------------------+
-| facebook.com | b.ns.facebook.com. |
+| facebook.com | d.ns.facebook.com. |
 +              +--------------------+
-|              | d.ns.facebook.com. |
-+              +--------------------+
-|              | a.ns.facebook.com. |
+|              | b.ns.facebook.com. |
 +              +--------------------+
 |              | c.ns.facebook.com. |
++              +--------------------+
+|              | a.ns.facebook.com. |
 +--------------+--------------------+
 
-MX Records
+[✔] MX Records
 +--------------+-----------------------------+
 |    DOMAIN    |         MX RECORDS          |
 +--------------+-----------------------------+
 | facebook.com | smtpin.vvv.facebook.com.    |
 |              | 10                          |
 +--------------+-----------------------------+
+
+🐳 You can pull docker image in: https://hub.docker.com/r/ductn4/loo
+
+⭐️ Star the project on GitHub if you liked this tool
+
+👉 https://github.com/ductnn/lookup 👈
+
+🎉 Thank you so much 🎉
 ```
 
 ## License
