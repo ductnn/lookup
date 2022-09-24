@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - feature-build-cicd
+      - master
   pull_request: {}
 
 jobs:
@@ -42,4 +42,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/loo:latest
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature-build-cicd' }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
