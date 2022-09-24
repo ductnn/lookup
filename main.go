@@ -311,16 +311,38 @@ func main() {
 	var name string
 
 	color.HiGreen("%s", banner)
-	color.HiBlue("\nEnter subdomain or domain name:")
+	color.HiCyan("\nEnter subdomain or domain name:")
 
 	fmt.Scanf("%s", &name)
 
-	get_cname(name)
-	get_txt_record(name)
-	get_ip(name)
-	get_ns(name)
-	get_mx_record(name)
-	get_subdomain(name)
+	var choice int
+
+	color.Cyan("\nEnter your choice")
+	fmt.Printf("\n")
+
+	color.Green("[1] - CNAME lookup")
+	color.Green("[2] - Subdomain lookup")
+	color.Green("[3] - TXT Records lookup")
+	color.Green("[4] - IP informstion lookup")
+	color.Green("[5] - NameServers lookup")
+	color.Green("[6] - MX Records lookup")
+
+	fmt.Printf("\n")
+	fmt.Scanf("%d", &choice)
+
+	if choice == 1 {
+		get_cname(name)
+	} else if choice == 2 {
+		get_subdomain(name)
+	} else if choice == 3 {
+		get_txt_record(name)
+	} else if choice == 4 {
+		get_ip(name)
+	} else if choice == 5 {
+		get_ns(name)
+	} else if choice == 6 {
+		get_mx_record(name)
+	}
 
 	end_program()
 }
