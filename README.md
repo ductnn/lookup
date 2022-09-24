@@ -4,8 +4,8 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/ductnn/lookup)](https://goreportcard.com/report/github.com/ductnn/lookup)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**LOOKUP** is a simple tool check IP informations, CNAME, NS(Name Server), A records,
-MX records, ... with **Go**.
+**LOOKUP** is a simple reconnaissance tool, a tool for scanning IP informations,
+CNAME, Subdomain, NS(Name Server), A records, MX records, ... with **Go**.
 
 ```bash
  _                _    _   _
