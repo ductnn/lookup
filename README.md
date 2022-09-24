@@ -103,74 +103,300 @@ chmod +x loo
 # And check result ...
 ```
 
-Test with **facebook.com**:
+Test with **github.com**:
 
 ```sh
-➜  bin git:(master) ✗ ./loo
+➜  lookup git:(master) go run main.go
 
-     /\/| __   /\/| __
-    |/\/ /_/  |/\/ /_/
-      ___     ___
-     / _ \   / _ \
-    | (_) | | (_) |
-     \___/   \___/
- 
+ _                _    _   _
+| |    ___   ___ | | _| | | |_ __
+| |   / _ \ / _ \| |/ / | | | '_ \
+| |__| (_) | (_) |   <| |_| | |_) |
+|_____\___/ \___/|_|\_\\___/| .__/
+                            |_|
+
+[+] by @ductnn
+[+] https://github.com/ductnn
+[-] Usage: ./loo
+
 
 Enter subdomain or domain name:
-facebook.com
+github.com
 
-[✔] CNAME
-+---------------------+--------------+---------------+
-| DOMAIN OR SUBDOMAIN |    DOMAIN    |     CNAME     |
-+---------------------+--------------+---------------+
-| facebook.com        | facebook.com | facebook.com. |
-+---------------------+--------------+---------------+
+Enter your choice
 
-[✔] TXT records
-+--------------+----------------------------------------------------------------------+
-|    DOMAIN    |                             TXT RECORDS                              |
-+--------------+----------------------------------------------------------------------+
-| facebook.com | google-site-verification=sK6uY9x7eaMoEMfn3OILqwTFYgaNp4llmguKI-C3_iA |
-+              +----------------------------------------------------------------------+
-|              | google-site-verification=A2WZWCNQHrGV_TWwKh6KHY90tY0SHZo_RnyMJoDaG0s |
-+              +----------------------------------------------------------------------+
-|              | google-site-verification=wdH5DTJTc9AYNwVunSVFeK0hYDGUIEOGb-RReU6pJlY |
-+              +----------------------------------------------------------------------+
-|              | v=spf1                                                               |
-|              | redirect=_spf.facebook.com                                           |
-+--------------+----------------------------------------------------------------------+
+[1] - CNAME lookup
+[2] - Subdomain lookup
+[3] - TXT Records lookup
+[4] - IP informstion lookup
+[5] - NameServers lookup
+[6] - MX Records lookup
 
-[✔] IP Informations
-+--------------+------------------------------------+------------------+------------------+------------------------+--------------+
-|    DOMAIN    |                 IP                 | CITY AND COUNTRY |     LOCATION     |      ORGANIZATION      |    IPISP     |
-+--------------+------------------------------------+------------------+------------------+------------------------+--------------+
-| facebook.com | 31.13.77.35                        | Hong             | 22.2783,114.1747 | AS32934 Facebook,      | FACEBOOK,    |
-|              |                                    | Kong, HK         |                  | Inc.                   | US           |
-+              +------------------------------------+------------------+------------------+                        +              +
-|              | 2a03:2880:f15a:83:face:b00c:0:25de | Dublin,          | 53.3331,-6.2489  |                        |              |
-|              |                                    | IE               |                  |                        |              |
-+--------------+------------------------------------+------------------+------------------+------------------------+--------------+
+2
 
-[✔] Name Servers
-+--------------+--------------------+
-|    DOMAIN    |    NAME SERVERS    |
-+--------------+--------------------+
-| facebook.com | d.ns.facebook.com. |
-+              +--------------------+
-|              | b.ns.facebook.com. |
-+              +--------------------+
-|              | c.ns.facebook.com. |
-+              +--------------------+
-|              | a.ns.facebook.com. |
-+--------------+--------------------+
-
-[✔] MX Records
-+--------------+-----------------------------+
-|    DOMAIN    |         MX RECORDS          |
-+--------------+-----------------------------+
-| facebook.com | smtpin.vvv.facebook.com.    |
-|              | 10                          |
-+--------------+-----------------------------+
+[✔] Subdomain
++------------+-----------------------------------+
+|   DOMAIN   |             SUBDOMAIN             |
++------------+-----------------------------------+
+| github.com | import2.github.com                |
++            +-----------------------------------+
+|            | import2.github.com                |
+|            | importer2.github.com              |
+|            | porter2.github.com                |
++            +-----------------------------------+
+|            | api.stars.github.com              |
++            +-----------------------------------+
+|            | api.stars.github.com              |
+|            | www.api.stars.github.com          |
++            +-----------------------------------+
+|            | *.github.com                      |
++            +-----------------------------------+
+|            | *.github.com                      |
+|            | github.com                        |
++            +-----------------------------------+
+|            | examregistration.github.com       |
++            +-----------------------------------+
+|            | vpn-ca.iad.github.com             |
++            +-----------------------------------+
+|            | *.review-lab.github.com           |
++            +-----------------------------------+
+|            | *.review-lab.github.com           |
+|            | review-lab.github.com             |
++            +-----------------------------------+
+|            | github.com                        |
++            +-----------------------------------+
+|            | github.com                        |
+|            | www.github.com                    |
++            +-----------------------------------+
+|            | *.pkg.github.com                  |
++            +-----------------------------------+
+|            | *.pkg.github.com                  |
+|            | pkg.github.com                    |
++            +-----------------------------------+
+|            | visualstudio.github.com           |
++            +-----------------------------------+
+|            | visualstudio.github.com           |
+|            | www.visualstudio.github.com       |
++            +-----------------------------------+
+|            | *.github.com                      |
+|            | github.com                        |
+|            | www.github.com                    |
++            +-----------------------------------+
+|            | render-lab.github.com             |
++            +-----------------------------------+
+|            | render-lab.github.com             |
+|            | www.render-lab.github.com         |
++            +-----------------------------------+
+|            | *.github.io                       |
++            +-----------------------------------+
+|            | docs-front-door.github.com        |
++            +-----------------------------------+
+|            | docs.github.com                   |
++            +-----------------------------------+
+|            | *.smtp.github.com                 |
++            +-----------------------------------+
+|            | *.smtp.github.com                 |
+|            | smtp.github.com                   |
++            +-----------------------------------+
+|            | skyline.github.com                |
++            +-----------------------------------+
+|            | skyline.github.com                |
+|            | www.skyline.github.com            |
++            +-----------------------------------+
+|            | api.security.github.com           |
++            +-----------------------------------+
+|            | api.security.github.com           |
+|            | www.api.security.github.com       |
++            +-----------------------------------+
+|            | f.cloud.github.com                |
++            +-----------------------------------+
+|            | *.registry.github.com             |
++            +-----------------------------------+
+|            | *.registry.github.com             |
+|            | registry.github.com               |
++            +-----------------------------------+
+|            | help.github.com                   |
++            +-----------------------------------+
+|            | docs.github.com                   |
+|            | help.github.com                   |
++            +-----------------------------------+
+|            | support.enterprise.github.com     |
++            +-----------------------------------+
+|            | support.enterprise.github.com     |
+|            | www.support.enterprise.github.com |
++            +-----------------------------------+
+|            | jira.github.com                   |
++            +-----------------------------------+
+|            | jira.github.com                   |
+|            | www.jira.github.com               |
++            +-----------------------------------+
+|            | fast.github.com                   |
++            +-----------------------------------+
+|            | r2.shared.global.fastly.net       |
++            +-----------------------------------+
+|            | dns-vetting1i.map.fastly.net      |
++            +-----------------------------------+
+|            | mac-installer.github.com          |
++            +-----------------------------------+
+|            | vscode-auth.github.com            |
++            +-----------------------------------+
+|            | classroom.github.com              |
++            +-----------------------------------+
+|            | styleguide.github.com             |
++            +-----------------------------------+
+|            | render.github.com                 |
++            +-----------------------------------+
+|            | render.github.com                 |
+|            | render-lab.github.com             |
++            +-----------------------------------+
+|            | www.github.com                    |
++            +-----------------------------------+
+|            | *.codespaces-ppe.github.com       |
++            +-----------------------------------+
+|            | *.codespaces-ppe.github.com       |
+|            | codespaces-ppe.github.com         |
++            +-----------------------------------+
+|            | *.codespaces.github.com           |
++            +-----------------------------------+
+|            | *.codespaces.github.com           |
+|            | codespaces.github.com             |
++            +-----------------------------------+
+|            | *.codespaces-dev.github.com       |
++            +-----------------------------------+
+|            | *.codespaces-dev.github.com       |
+|            | codespaces-dev.github.com         |
++            +-----------------------------------+
+|            | lab.github.com                    |
++            +-----------------------------------+
+|            | *.workspaces-dev.github.com       |
++            +-----------------------------------+
+|            | *.workspaces-dev.github.com       |
+|            | workspaces-dev.github.com         |
++            +-----------------------------------+
+|            | *.workspaces.github.com           |
++            +-----------------------------------+
+|            | *.workspaces.github.com           |
+|            | workspaces.github.com             |
++            +-----------------------------------+
+|            | *.workspaces-ppe.github.com       |
++            +-----------------------------------+
+|            | *.workspaces-ppe.github.com       |
+|            | workspaces-ppe.github.com         |
++            +-----------------------------------+
+|            | graphql-stage.github.com          |
++            +-----------------------------------+
+|            | graphql-stage.github.com          |
+|            | www.graphql-stage.github.com      |
++            +-----------------------------------+
+|            | graphql.github.com                |
++            +-----------------------------------+
+|            | graphql.github.com                |
+|            | www.graphql.github.com            |
++            +-----------------------------------+
+|            | maintainers.github.com            |
++            +-----------------------------------+
+|            | maintainers.github.com            |
+|            | www.maintainers.github.com        |
++            +-----------------------------------+
+|            | *.a.ssl.fastly.net                |
++            +-----------------------------------+
+|            | f.cloud.github.com                |
+|            | raw.github.com                    |
++            +-----------------------------------+
+|            | import.github.com                 |
++            +-----------------------------------+
+|            | import.github.com                 |
+|            | porter.github.com                 |
++            +-----------------------------------+
+|            | pkg.github.com                    |
++            +-----------------------------------+
+|            | lab-sandbox.github.com            |
++            +-----------------------------------+
+|            | *.staging-lab.github.com          |
++            +-----------------------------------+
+|            | *.staging-lab.github.com          |
+|            | staging-lab.github.com            |
++            +-----------------------------------+
+|            | brandguide.github.com             |
++            +-----------------------------------+
+|            | talks.github.com                  |
++            +-----------------------------------+
+|            | learn.github.com                  |
++            +-----------------------------------+
+|            | status.github.com                 |
++            +-----------------------------------+
+|            | octostatus-production.github.com  |
+|            | status.github.com                 |
++            +-----------------------------------+
+|            | slack.github.com                  |
++            +-----------------------------------+
+|            | cla.github.com                    |
++            +-----------------------------------+
+|            | GitHub,                           |
+|            | Inc.                              |
++            +-----------------------------------+
+|            | support@github.com                |
++            +-----------------------------------+
+|            | cloud.github.com                  |
++            +-----------------------------------+
+|            | enterprise.github.com             |
++            +-----------------------------------+
+|            | education.github.com              |
++            +-----------------------------------+
+|            | education.github.com              |
+|            | edu.github.com                    |
++            +-----------------------------------+
+|            | *.branch.github.com               |
++            +-----------------------------------+
+|            | *.branch.github.com               |
+|            | branch.github.com                 |
++            +-----------------------------------+
+|            | jobs.github.com                   |
++            +-----------------------------------+
+|            | community.github.com              |
++            +-----------------------------------+
+|            | *.hq.github.com                   |
++            +-----------------------------------+
+|            | *.hq.github.com                   |
+|            | hq.github.com                     |
++            +-----------------------------------+
+|            | *.stg.github.com                  |
++            +-----------------------------------+
+|            | *.stg.github.com                  |
+|            | stg.github.com                    |
++            +-----------------------------------+
+|            | schrauger.github.io               |
++            +-----------------------------------+
+|            | github.com                        |
+|            | schrauger.github.com              |
++            +-----------------------------------+
+|            | a.ssl.fastly.net                  |
++            +-----------------------------------+
+|            | offer.github.com                  |
++            +-----------------------------------+
+|            | atom-installer.github.com         |
++            +-----------------------------------+
+|            | *.rs.github.com                   |
++            +-----------------------------------+
+|            | *.rs.github.com                   |
+|            | rs.github.com                     |
++            +-----------------------------------+
+|            | dodgeball.github.com              |
++            +-----------------------------------+
+|            | helpnext.github.com               |
++            +-----------------------------------+
+|            | *.github.com                      |
+|            | www.github.com                    |
++            +-----------------------------------+
+|            | central.github.com                |
++            +-----------------------------------+
+|            | *.id.github.com                   |
++            +-----------------------------------+
+|            | *.id.github.com                   |
+|            | id.github.com                     |
++            +-----------------------------------+
+|            | camo.github.com                   |
++------------+-----------------------------------+
 
 🐳 You can pull docker image in: https://hub.docker.com/r/ductn4/loo
 
