@@ -39,7 +39,7 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
-    needs: [build]
+    # needs: [build]
 
     steps:
       - name: Checkout
