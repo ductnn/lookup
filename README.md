@@ -1,7 +1,8 @@
 # LOOKUP
 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ductnn/lookup/pulls)
+[![CI](https://github.com/ductnn/lookup/actions/workflows/ci.yml/badge.svg)](https://github.com/ductnn/lookup/actions/workflows/ci.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ductnn/lookup)](https://goreportcard.com/report/github.com/ductnn/lookup)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ductnn/lookup/pulls)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **LOOKUP** is a simple reconnaissance tool, a tool for scanning IP informations,
@@ -88,7 +89,7 @@ docker build -t <your-image> -f Dockerfile .
 or pulls my image in [here](https://hub.docker.com/r/ductn4/loo), and run *container*
 
 ```sh
-docker run -it ductn4/loo:v2
+docker run -it ductn4/loo:latest
 ```
 
 ### With file binary
