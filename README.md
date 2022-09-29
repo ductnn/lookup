@@ -5,7 +5,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ductnn/lookup/pulls)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**LOOKUP** is a simple reconnaissance tool, a tool for scanning IP informations,
+**LOOKUP** is a simple `reconnaissance` tool, a tool for scanning IP informations,
 CNAME, Subdomain, NS(Name Server), A records, MX records, ... with **Go**.
 
 ```bash
