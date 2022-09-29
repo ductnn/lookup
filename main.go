@@ -14,6 +14,7 @@ import (
 
 	"github.com/ammario/ipisp/v2"
 	"github.com/fatih/color"
+	"github.com/gocolly/colly"
 	"github.com/ipinfo/go/v2/ipinfo"
 	"github.com/olekukonko/tablewriter"
 )
@@ -24,16 +25,10 @@ type Crtsr struct {
 }
 
 var banner = `
- _                _    _   _
-| |    ___   ___ | | _| | | |_ __
-| |   / _ \ / _ \| |/ / | | | '_ \
-| |__| (_) | (_) |   <| |_| | |_) |
-|_____\___/ \___/|_|\_\\___/| .__/
-                            |_|
-
-[+] by @ductnn
-[+] https://github.com/ductnn
-[-] Usage: ./loo
+               #   ___       #   ___           ___                    #                 #
+     _/7       #  <_*_>      #  <_*_>         /\#/\         \-^-/     #=ooO=========Ooo=#
+    (o o)      #  (o o)      #  (o o)        /(o o)\        (o o)     #  \\  (o o)  //  #
+ooO--(_)--Ooo--8---(_)--Ooo--8---(_)--Ooo-ooO--(_)--Ooo-ooO--(_)--Ooo---------(_)--------
 `
 
 //Find CNAME
@@ -246,7 +241,6 @@ func GetJsonFromCrt(domain string) ([]string, error) {
 
 }
 func removeDuplicateValues(strSlice []string) []string {
-	// https://www.geeksforgeeks.org/how-to-remove-duplicate-values-from-slice-in-golang/
 	keys := make(map[string]bool)
 	list := []string{}
 
@@ -291,6 +285,35 @@ func get_subdomain(name string) {
 	table.Render()
 }
 
+// Extract Link: https://github.com/ductnn/cUrls
+func get_links(name string) {
+	color.HiGreen("\n[✔] " + color.HiYellowString("Extract URL"))
+	name = "https://" + name
+
+	c := colly.NewCollector(
+		colly.AllowedDomains(),
+	)
+
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Domain", "Link found"})
+	table.SetRowLine(true)
+	table.SetAutoMergeCells(true)
+
+	c.OnHTML("a[href]", func(e *colly.HTMLElement) {
+		link := e.Attr("href")
+		data := [][]string{
+			{color.HiCyanString(name), color.HiBlueString(link)},
+		}
+
+		for _, v := range data {
+			table.Append(v)
+		}
+	})
+
+	c.Visit(name)
+	table.Render()
+}
+
 // End
 func end_program() {
 	var goodbye, githubURL, dockerURL string
@@ -310,22 +333,25 @@ func end_program() {
 func main() {
 	var name string
 
-	color.HiGreen("%s", banner)
-	color.HiCyan("\nEnter subdomain or domain name:")
+	color.Green("%s", banner)
+	color.Blue("\nEnter subdomain or domain name:")
 
 	fmt.Scanf("%s", &name)
 
 	var choice int
 
-	color.Cyan("\nEnter your choice")
+	color.Blue("\nEnter your choice:")
 	fmt.Printf("\n")
 
 	color.Green("[1] - CNAME lookup")
 	color.Green("[2] - Subdomain lookup")
 	color.Green("[3] - TXT Records lookup")
-	color.Green("[4] - IP informstion lookup")
+	color.Green("[4] - IP information lookup")
 	color.Green("[5] - NameServers lookup")
 	color.Green("[6] - MX Records lookup")
+	color.Green("[7] - Extract URL")
+	color.Green("[8] - Lookup all without subdomains")
+	color.Green("[9] - ALL")
 
 	fmt.Printf("\n")
 	fmt.Scanf("%d", &choice)
@@ -342,6 +368,23 @@ func main() {
 		get_ns(name)
 	} else if choice == 6 {
 		get_mx_record(name)
+	} else if choice == 7 {
+		get_links(name)
+	} else if choice == 8 {
+		get_cname(name)
+		get_txt_record(name)
+		get_ip(name)
+		get_ns(name)
+		get_mx_record(name)
+		get_links(name)
+	} else if choice == 9 {
+		get_cname(name)
+		get_subdomain(name)
+		get_txt_record(name)
+		get_ip(name)
+		get_ns(name)
+		get_mx_record(name)
+		get_links(name)
 	}
 
 	end_program()

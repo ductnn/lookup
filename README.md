@@ -9,12 +9,10 @@
 CNAME, Subdomain, NS(Name Server), A records, MX records, ... with **Go**.
 
 ```bash
- _                _    _   _
-| |    ___   ___ | | _| | | |_ __
-| |   / _ \ / _ \| |/ / | | | '_ \
-| |__| (_) | (_) |   <| |_| | |_) |
-|_____\___/ \___/|_|\_\\___/| .__/
-                            |_|
+               #   ___       #   ___           ___                    #                 #
+     _/7       #  <_*_>      #  <_*_>         /\#/\         \-^-/     #=ooO=========Ooo=#
+    (o o)      #  (o o)      #  (o o)        /(o o)\        (o o)     #  \\  (o o)  //  #
+ooO--(_)--Ooo--8---(_)--Ooo--8---(_)--Ooo-ooO--(_)--Ooo-ooO--(_)--Ooo---------(_)--------
 ```
 
 ## Install
@@ -108,29 +106,26 @@ Test with **github.com**:
 ```sh
 ➜  lookup git:(master) go run main.go
 
- _                _    _   _
-| |    ___   ___ | | _| | | |_ __
-| |   / _ \ / _ \| |/ / | | | '_ \
-| |__| (_) | (_) |   <| |_| | |_) |
-|_____\___/ \___/|_|\_\\___/| .__/
-                            |_|
-
-[+] by @ductnn
-[+] https://github.com/ductnn
-[-] Usage: ./loo
+               #   ___       #   ___           ___                    #                 #
+     _/7       #  <_*_>      #  <_*_>         /\#/\         \-^-/     #=ooO=========Ooo=#
+    (o o)      #  (o o)      #  (o o)        /(o o)\        (o o)     #  \\  (o o)  //  #
+ooO--(_)--Ooo--8---(_)--Ooo--8---(_)--Ooo-ooO--(_)--Ooo-ooO--(_)--Ooo---------(_)--------
 
 
 Enter subdomain or domain name:
 github.com
 
-Enter your choice
+Enter your choice:
 
 [1] - CNAME lookup
 [2] - Subdomain lookup
 [3] - TXT Records lookup
-[4] - IP informstion lookup
+[4] - IP information lookup
 [5] - NameServers lookup
 [6] - MX Records lookup
+[7] - Extract URL
+[8] - Lookup all without subdomains
+[9] - ALL
 
 2
 
