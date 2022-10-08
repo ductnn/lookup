@@ -405,6 +405,7 @@ Enter your choice:
 ## Download
 
 For linux x64: [download](./bin/loo_linux)
+
 For MacOS x64: [download](./bin/loo_darwin)
 
 ## License
