@@ -402,5 +402,10 @@ Enter your choice:
 🎉 Thank you so much 🎉
 ```
 
+## Download
+
+For linux x64: [download](./bin/loo_linux)
+For MacOS x64: [download](./bin/loo_darwin)
+
 ## License
 The MIT License (MIT). Please see [LICENSE](license) for more information.
